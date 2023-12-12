@@ -118,3 +118,29 @@ button{
 .pushable:focus:not(:focus-visible) {
  outline: none;
 }
+
+footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+
+  position: absolute;
+  bottom: 0;
+
+  color: white;
+  font-weight: 600;
+}
+
+footer a{
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .7s;
+}
+
+footer a:hover{
+  color: purple;
+  text-decoration: underline;
+}
+
