@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Forca</title>
+  <link rel="stylesheet" href="assets/game.css">
+</head>
+
+<body>
+  <div class="game-modal">
+    <div class="content">
+      <img src="assets/images/lost.gif" alt="game-gif">
+      <h4>Fim de Jogo!!</h4>
+      <p>A palavra era: <b>Programador</b></p>
+      <button class="play-again">
+        Novo jogo
+      </button>
+      <a href="index.html">
+        <button class="menu">
+          Menu
+        </button>
+      </a>
+    </div>
+  </div>
+  <div class="container">
+    <div class="hangman-box">
+      <img src="assets/images/hangman-0.svg" alt="hangman-img">
+      <h1>Jogo da forca</h1>
+    </div>
+    <div class="game-box">
+      <ul class="word-display"></ul>
+      <h4 class="hint-text">
+        Dica: <b>Lorem ipsum dolor sit amet at eligendi ducimus, fugiat quibusdam modi obcaecati earum beatae. Atque,
+          in!</b>
+      </h4>
+      <h4 class="guesses-text">
+        Tentativas incorretas: <b>0 / 6</b>
+      </h4>
+      <div class="keyboard">
+
+      </div>
+    </div>
+  </div>
+</body>
+<script src="assets/word-list.js"></script>
+<script src="assets/game.js"></script>
+
+</html>
