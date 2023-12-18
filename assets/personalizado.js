@@ -1,44 +1,48 @@
+window.addEventListener('load', () => {
+  document.querySelector('.main').classList.add('show');
+});
+
 const alertMessage = document.querySelector(".alert-message");
 const alertTitle = document.querySelector(".alert-title");
 
-function verificarDados() {
-    let palavra = document.querySelector(".palavra").value;
-    let dica = document.querySelector(".dica").value;
-    let mensagem;
+function verifyData() {
+  const wordInput = document.querySelector(".word").value.toLowerCase().trim();
+  const hintInput = document.querySelector(".hint").value.toLowerCase().trim();
+  let message;
 
-    if (!palavra || !dica) {
-        mensagem = 'Digite uma palavra e dica!!'
-    } else if (palavra.includes(' ') || palavra.includes('-')) {
-        mensagem = 'A palavra não pode conter espaços nem hífens'
-    } else if (contemCaracteresEspeciais(palavra)) {
-        mensagem = 'A palavra não pode conter caracteres especiais'
-    } else {
-        sessionStorage.setItem('personalizado', JSON.stringify({
-            palavra: palavra,
-            dica: dica
-        }));
+  if (!wordInput || !hintInput) {
+    message = 'Type a word and a hint!!';
+  } else if (wordInput.includes(' ') || wordInput.includes('-')) {
+    message = 'The word cannot contain spaces or hyphens';
+  } else if (containsSpecialCharacters(wordInput)) {
+    message = 'The word cannot contain special characters';
+  } else {
+    sessionStorage.setItem('custom', JSON.stringify({
+      word: wordInput,
+      hint: hintInput
+    }));
 
-        setTimeout(function () {
-            window.location.href = "./game.html";
-        }, 100);
-        return;
-    }
-
-    alertTitle.textContent = mensagem;
-    Mensagem(true);
     setTimeout(() => {
-        Mensagem(false);
-    }, 2000)
+      window.location.href = "./game.html";
+    }, 100);
+    return;
+  }
+
+  displayAlert(message);
 }
 
-function contemCaracteresEspeciais(s) {
-    return /[^a-z\s]/g.test(s);
+function containsSpecialCharacters(s) {
+  return /[^a-z\s]/g.test(s);
 }
 
-function Mensagem(bool) {
-    if (bool) {
-        alertMessage.classList.add('show');
-        return;
-    }
-    alertMessage.classList.remove('show');
+function displayAlert(message) {
+  alertTitle.textContent = message;
+  showAlert(true);
+  setTimeout(() => {
+    showAlert(false);
+  }, 2000);
+}
+
+function showAlert(displayMessage) {
+  alertMessage.classList.toggle('show', displayMessage);
 }

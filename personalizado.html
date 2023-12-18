@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-bt">
+<html lang="pt-br">
 
 <head>
  <meta charset="UTF-8">
@@ -9,33 +9,34 @@
 </head>
 
 <body>
-
- <div class="alert-message">
-  <img src="assets/images/caution.png" alt="icon" class="caution-icon">
-  <span class="alert-title">Cuidado com os assentos nas palavras</span>
-  <img src="assets/images/error.png" alt="icon" class="close-icon" onclick="Mensagem(false)">
- </div>
-
- <div class="container">
-  <div class="controler">
-   <h1>Seja criativo!!</h1>
-   <form>
-    <div class="input-box">
-     <input type="text" class="palavra" maxlength="10" placeholder="Digite a palavra">
-    </div>
-    <div class="input-box">
-     <input type="text" class="dica" maxlength="100" placeholder="Digite a dica">
-    </div>
-   </form>
-   <button class="pushable" onclick="verificarDados()">
-    <span class="shadow"></span>
-    <span class="edge"></span>
-    <span class="front">
-     Jogar
-    </span>
-   </button>
+ <main class="main">
+  <div class="alert-message">
+   <img src="assets/images/caution.png" alt="icon" class="caution-icon">
+   <span class="alert-title">Cuidado com os assentos nas palavras</span>
+   <img src="assets/images/error.png" alt="icon" class="close-icon" onclick="showAlert(false)">
   </div>
- </div>
+  <div class="container">
+   <section class="controler">
+    <h1>Seja criativo!!</h1>
+    <form>
+     <div class="input-box">
+      <input type="text" class="word" maxlength="10" placeholder="Enter the word">
+     </div>
+     <div class="input-box">
+      <input type="text" class="hint" maxlength="100" placeholder="Enter the hint">
+     </div>
+    </form>
+    <button class="pushable" onclick="verifyData()">
+     <span class="shadow"></span>
+     <span class="edge"></span>
+     <span class="front">
+      Start
+     </span>
+    </button>
+   </section>
+  </div>
+ </main>
+ <script src="assets/personalizado.js"></script>
 </body>
-<script src="assets/personalizado.js"></script>
+
 </html>
