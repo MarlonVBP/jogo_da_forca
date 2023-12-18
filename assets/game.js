@@ -1,76 +1,80 @@
+window.addEventListener('load', () => {
+ document.querySelector('.slide-in').classList.add('show');
+});
+
 const hangmanImage = document.querySelector(".hangman-box img")
 const wordDisplay = document.querySelector(".word-display")
 const guessesText = document.querySelector(".guesses-text b")
 const keyboardDiv = document.querySelector(".keyboard");
 const gameModal = document.querySelector(".game-modal");
-const novoJogoBtn = document.querySelector(".play-again");
+const newGameBtn = document.querySelector(".play-again");
 
-let palavraSelecionada, letrasCorretas, contadorDeErros;
-const maximoDeErros = 6;
+let selectedWord, LettersCorrect, errorCounter;
+const maximumErrors = 6;
 const resetGame = () => {
-    // Resetando todas as variaveis
-    letrasCorretas = [];
-    contadorDeErros = 0;
-    hangmanImage.src = `assets/images/hangman-${contadorDeErros}.svg`;
-    guessesText.innerText = `${contadorDeErros} / ${maximoDeErros}`;
-    keyboardDiv.querySelectorAll("button").forEach(btn => btn.disabled = false);
-    wordDisplay.innerHTML = palavraSelecionada.split("").map(() => `<li class="letter"></li>`).join("");
-    gameModal.classList.remove("show");
+ // Resetting all variables
+ LettersCorrect = [];
+ errorCounter = 0;
+ hangmanImage.src = `assets/images/hangman-${errorCounter}.svg`;
+ guessesText.innerText = `${errorCounter} / ${maximumErrors}`;
+ keyboardDiv.querySelectorAll("button").forEach(btn => btn.disabled = false);
+ wordDisplay.innerHTML = selectedWord.split("").map(() => `<li class="letter"></li>`).join("");
+ gameModal.classList.remove("show");
 }
 
-// Pegando uma palavra e uma dica aleatoriamente
+// Getting a word and a hint randomly
 const getRandomWord = () => {
-    const { palavra, dica } = !sessionStorage.getItem('personalizado') ? listaPalavras[Math.floor(Math.random() * listaPalavras.length)] : JSON.parse(sessionStorage.getItem('personalizado'));
-    sessionStorage.clear();
-    palavraSelecionada = palavra;
-    console.log(palavra);
-    document.querySelector(".hint-text b").innerText = dica;
-    resetGame();
+ const { word, hint } = !sessionStorage.getItem('custom') ? wordList[Math.floor(Math.random() * wordList.length)] : JSON.parse(sessionStorage.getItem('custom'));
+ sessionStorage.clear();
+ selectedWord = word;
+ console.log(word);
+ document.querySelector(".hint-text b").innerText = hint;
+ resetGame();
 }
 
-const fimDeJogo = (ganhou) => {
-    // Mostrando o modal de fim de jogo com o conteúdo dinâmico de acondo com a vitória ou derrota
-    setTimeout(() => {
-        const modalText = ganhou ? `Você achou a palavra: ` : `A palavra correta era: `
-        gameModal.querySelector("img").src = `assets/images/${ganhou ? 'victory' : 'lost'}.gif`;
-        gameModal.querySelector("h4").innerText = `${ganhou ? 'Parabéns!!!' : 'Você perdeu ;-; !!!'}`;
-        gameModal.querySelector("p").innerHTML = `${modalText}<b>${palavraSelecionada}</b>`;
-        gameModal.classList.add("show");
-    }, 300)
+const endGame = (isVictory) => {
+ // Showing the end game modal with content according to victory or defeat
+ setTimeout(() => {
+  const modalText = isVictory ? `You found the word: ` : `The correct word was: `
+  gameModal.querySelector("img").src = `assets/images/${isVictory ? 'victory' : 'lost'}.gif`;
+  gameModal.querySelector("h4").innerText = `${isVictory ? 'Congratulations!!!' : 'You lost ;-; !!!'}`;
+  gameModal.querySelector("p").innerHTML = `${modalText}<b>${selectedWord}</b>`;
+  gameModal.classList.add("show");
+ }, 300)
 }
 
-const inicarJogo = (button, clickedLetter) => {
-    if (palavraSelecionada.includes(clickedLetter)) {
-        // Exibindo a letra corretamente selecionadas na tela
-        [...palavraSelecionada].forEach((letter, index) => {
-            if (letter === clickedLetter) {
-                letrasCorretas.push(letter)
-                wordDisplay.querySelectorAll("li")[index].innerText = letter;
-                wordDisplay.querySelectorAll("li")[index].classList.add("guessed");
-            }
-        })
-    } else {
-        // Atualizando a imagem quando houver erro
-        contadorDeErros = (contadorDeErros == 6) ? 6 : contadorDeErros + 1;
-        hangmanImage.src = `assets/images/hangman-${contadorDeErros}.svg`;
-        guessesText.innerText = `${contadorDeErros} / ${maximoDeErros}`;
-    }
+const startGame = (button, clickedLetter) => {
+ if (selectedWord.includes(clickedLetter)) {
+  // Displaying correctly selected letters on the screen
+  [...selectedWord].forEach((letter, index) => {
+   if (letter === clickedLetter) {
+    LettersCorrect.push(letter)
+    wordDisplay.querySelectorAll("li")[index].innerText = letter;
+    wordDisplay.querySelectorAll("li")[index].classList.add("guessed");
+   }
+  })
+ } else {
+  // Updating the image when there's an error
+  errorCounter = (errorCounter == 6) ? 6 : errorCounter + 1;
+  hangmanImage.src = `assets/images/hangman-${errorCounter}.svg`;
+  guessesText.innerText = `${errorCounter} / ${maximumErrors}`;
+ }
 
-    button.disabled = true;
+ button.disabled = true;
 
-    // Verificando sucesso é fracasso do jogador
-    if (contadorDeErros === maximoDeErros) return fimDeJogo(false);
-    if (letrasCorretas.length === palavraSelecionada.length) return fimDeJogo(true);
+ // Checking player's success or failure
+ if (errorCounter === maximumErrors) return endGame(false);
+ if (LettersCorrect.length === selectedWord.length) return endGame(true);
 }
 
-// Criando os botões do teclado e adicionando o evento de click
+// Creating keyboard buttons and adding click event
 for (let i = 0; i < 26; i++) {
-    const button = document.createElement("button");
-    button.innerText = String.fromCharCode(97 + i);
-    keyboardDiv.appendChild(button);
-    button.addEventListener("click", e => inicarJogo(e.target, String.fromCharCode(97 + i)));
+ const button = document.createElement("button");
+ button.innerText = String.fromCharCode(97 + i);
+ keyboardDiv.appendChild(button);
+ button.addEventListener("click", e => startGame(e.target, String.fromCharCode(97 + i)));
 }
 
 getRandomWord();
 
-novoJogoBtn.addEventListener("click", getRandomWord);
+newGameBtn.addEventListener("click", getRandomWord);

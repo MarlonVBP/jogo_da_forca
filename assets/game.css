@@ -6,14 +6,25 @@
  box-sizing: border-box;
 }
 
-body {
+body{
+  background: rgb(192, 192, 192);
+}
+
+.slide-in {
  display: flex;
  align-items: center;
  padding: 0 10px;
  justify-content: center;
  min-height: 100vh;
- background: #5E63BA;
+ background: #E2A11A;
+ font-family: 'Open Sans', sans-serif;
+  transform: translateY(-100%);
+  transition: transform .7s;
 }
+.slide-in.show {
+  transform: translateY(0);
+}
+
 
 .container {
  width: 850px;
@@ -85,10 +96,10 @@ body {
  cursor: pointer;
  outline: none;
  border: none;
- background: #5E63BA;
+ background: #D32E86;
  border-radius: 4px;
  text-transform: uppercase;
- box-shadow: 0px 3px #484c94;
+ box-shadow: 0px 3px #8d1f5a;
  transform: translateY(2px);
  transition: all 300ms ease;
 }
@@ -105,13 +116,13 @@ body {
 }
 
 :where(.game-modal, .keyboard) button:hover {
- background: #8286C9;
- box-shadow: 0px 4px #484c94;
+ background: #d15e9b;
+ box-shadow: 0px 4px #8d1f5a;
 }
 
 :where(.game-modal, .keyboard) button:active {
- background: #6368c7;
- box-shadow: 1px 0px #484c94;
+ background: #a32367;
+ box-shadow: 1px 0px #8d1f5a;
 }
 
 .game-modal {
