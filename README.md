@@ -1,5 +1,5 @@
 # Jogo da forca
-A fun and interesting minigame, developed with HTMl, CSS and JS.
+A fun and interesting minigame, developed with HTML, CSS and JS.
 
 ![Captura de tela 2023-12-19 163759](https://github.com/MarlonVBP/jogo_da_forca/assets/101027484/a71a1c7f-05c8-4256-9c47-df3315844ffd)
 ![Captura de tela 2023-12-19 163816](https://github.com/MarlonVBP/jogo_da_forca/assets/101027484/f599f828-d7f1-48fe-91e5-55ff7baa75b8)
